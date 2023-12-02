@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Document</title>
+  <!--bts v4.5.2 minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    crossorigin="anonymous">
+	
+  <style>
+    body {
+      width: 600px;
+      margin: 0 auto;
+      text-align: center;
+
+    }
+
+    
+  </style>
+
+
+</head>
+
+<body id="body">
+	<!-- 主体盒子 -->
+  <div class="container">
+	  <!-- 头部 -->
+    <div class="headcontainer">
+      <div class="row"><h3>Sakura In Kaploei Schedule
+        <div class="col left"></div>
+        <div class="col center"></h3></div>
+        <div class="col right"></div>
+      </div>
+	  <div class="row">
+        <!-- 标签页导航 -->
+	   <ul class="nav nav-tabs" role="tablist">
+	     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#thisweek">This Week▼&nbsp;&nbsp;</a></li>
+	     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nextweek">Next Week▼&nbsp;&nbsp;</a></li>
+	     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#afternext">Week After Next▼&nbsp;&nbsp;</a></li>
+	   </ul>
+      </div>
+    </div>
+	<!-- 体部 -->
+    <div class="bodycontainer">
+		<!-- 行框1 -->
+      <div id='schedule-table' class="row container schedule-table">
+       
+	   <!-- 标签页内容 -->
+	   <div class="tab-content">
+	     <div id="thisweek" class="tab-pane active">
+	       <h4>From <span id="date0-mon"></span> To <span id="date0-sun"></span></h4>
+	       <div id="schedule-table-0" class="table">Some content.</div>
+	     </div>
+	     <div id="nextweek" class="tab-pane fade">
+	       <h4>From <span id="date1-mon"></span> To <span id="date1-sun"></span></h4>
+	      <div id="schedule-table-1" class="table">Some content.</div>
+	     </div>
+	     <div id="afternext" class="tab-pane fade">
+	       <h4>From <span id="date2-mon"></span> To <span id="date2-sun"></span></h4>
+	      <div id="schedule-table-2" class="table">Some content.</div>
+	     </div>
+	   </div>
+
+	   
+          
+	  
+	  </div>
+	  
+	  <!-- 行框n -->
+      <div class="ro">
+		  <!-- 块包 -->
+      Working Time: Mon-Thu:10:30-14:30 16:30-21:30; Fei-Sat:10:30-15:00 16:30-22:00; 
+      <br>
+      Sun:11:30-15:00 16:00-21:30
+     
+      </div>
+    </div>
+  </div>
+  
+<!-- 引入 jQuery 和 Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+ <!--路径for服务器 -->
+
+ <script type="text/javascript" src="/javascripts/assets/serverNetAddress.js"></script>
+ <script type="text/javascript" src="/javascripts/assets/dateTrans_module.js"></script>
+
+ <script type="text/javascript" src="/javascripts/work-schedule/scdOnload.js"></script>
+
+ 
+ <!-- 
+ <script type="text/javascript" src="../public/javascripts/assets/serverNetAddress.js"></script>
+ <script type="text/javascript" src="../public/javascripts/assets/dateTrans_module.js"></script>
+ <script type="text/javascript" src="../public/javascripts/work-schedule/scdOnload.js"></script> -->
+
+
+</body>
+
+</html>
