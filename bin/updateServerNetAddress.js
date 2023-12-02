@@ -57,7 +57,7 @@ async function updateServerNetAddress(serverPort) {
 
 
   //定义文件内容
-  let data = `var serverNetAddress ='${serverNetAddress}';
+  let data = `let serverNetAddress ='${serverNetAddress}';
 let serverIp = '${serverIp}';
 let serverPort ='${serverPort}';
 let serverProtocol ='${protocol}';`
