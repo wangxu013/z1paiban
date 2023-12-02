@@ -73,46 +73,20 @@ router.all('/update', function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
   res.header("Access-Control-Allow-Credentials", true); //可以带cookies
 
-  //!比较修改前后的position一不一样
-  let positionUpdate = req.body[0].position;
-  let positionOld;
-  async function vsPosition() {
-    await Employee.find({
-      _id: req.body[0]._id
-    }).lean().then(data => {
-      positionOld = data[0].position;
-      console.log(data);
+
+  async function orderDo() {
+
+    //update data from mongodb
+    await updateEmployeeData(req.body[0]._id, req.body[0]).then(data => {
+      res.json(data);
+      res.end();
+      // console.log(data);
     }).catch(err => console.log(err));
-
-    console.log('123', positionOld, positionUpdate);
-    //如果不一样,则重新生成number
-    if (positionOld != positionUpdate) {
-      async function fixData2() {
-        req.body[0].number = await generateNumber(req.body[0].position, req.body[0].date);
-        console.log('req.body[0]:', req.body[0]);
-        //update data from mongodb
-        await updateEmployeeData(req.body[0]._id, req.body[0]).then(data => {
-          res.json(data);
-          res.end();
-          console.log(data);
-        }).catch(err => console.log(err));
-      }
-      //执行
-      fixData2();
-    } else {
-      //update data from mongodb
-      await updateEmployeeData(req.body[0]._id, req.body[0]).then(data => {
-        res.json(data);
-        res.end();
-        console.log(data);
-      }).catch(err => console.log(err));
-    }
-
 
   }
   
   //执行
-  vsPosition();
+  orderDo();
 
 
 
@@ -143,7 +117,7 @@ router.all('/delete', function (req, res, next) {
 //get data form mongodb
 async function getEmployeeData() {
   let data = await Employee.find({},{_v:0}).lean().catch(err => console.log(err));
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
@@ -160,8 +134,8 @@ async function saveEmployeeData(data) {
 
 
 return await new Employee(data).save().then((res) => {
-    console.log("数据保存成功");
-    console.log(res);
+  console.log("Employee添加数据保存成功 => name:",res.name);
+ 
     return true;
 
   }).catch((err) => {
@@ -187,16 +161,17 @@ async function generateNumber(date) {
   let numbers = [];
   let number;
   //得到年的尾部两位,并转为字符串
-  let yearString = new Date().getFullYear().toString().slice(2, 4);
+  let yearString = new Date(date).getFullYear().toString().slice(2, 4);
   //得到月数,并把1和2月合到'0'上,11月合12月放在'9'上,其余3月到10月依次为'1'到'8'
-  let mouthString;
-  let mouthNumber = new Date().getMonth() -1;
-  if(mouthNumber===-1){
-    mouthString = '0'
-  } else if(mouthNumber===10){
-    mouthString = '9'
+  let monthString;
+  let monthNumber = new Date(date).getMonth() -1;
+  // console.log(101,monthNumber);
+  if(monthNumber===-1){
+    monthString = '0'
+  } else if(monthNumber===10){
+    monthString = '9'
   } else{
-    mouthString = mouthNumber.toString();
+    monthString = monthNumber.toString();
   }
 //得到所有员工号的最后两位,并转为数字
   for (let i = 0; i < data.length; i++) {
@@ -206,7 +181,7 @@ async function generateNumber(date) {
 //如果Numbers为空
   if (numbers.length == 0) {
 
-    return yearString + mouthNumber + '01';
+    return yearString + monthString + '01';
 
     //如果不为空
   } else {
@@ -220,7 +195,7 @@ async function generateNumber(date) {
       number = '0' + number;
     };
   
-    return yearString + mouthNumber + number;
+    return yearString + monthString + number;
   }
 
 }
