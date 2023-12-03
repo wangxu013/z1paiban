@@ -45,16 +45,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-
-
-
-//在public文件下留一个"外部网络地址"信息文件
-
-// //引入updateServerNetAddress文件
-// const { updateServerNetAddress } = require('./updateServerNetAddress');
-// updateServerNetAddress(port);
-
-
-
-
 module.exports = app;

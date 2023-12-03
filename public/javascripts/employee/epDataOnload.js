@@ -3,13 +3,13 @@
  *点击submit,添加数据
  */
 
-console.log(serverNetAddress);
+
 var table = document.getElementById("myTable");
 let headerlinks = document.querySelectorAll('.headerlink');
 
 //add click event to headerlinks
-headerlinks[0].href = serverNetAddress+"/admin";
-headerlinks[1].href = serverNetAddress+"/work-schedule";
+headerlinks[0].href = "/admin";
+headerlinks[1].href = "/work-schedule";
 
 
 
@@ -17,7 +17,7 @@ headerlinks[1].href = serverNetAddress+"/work-schedule";
 async function refresh() {
 
   //get db from server
-  let db = await fetch(`${serverNetAddress}/employee/tabledata`, {
+  let db = await fetch(`/employee/tabledata`, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -96,7 +96,7 @@ submit.addEventListener("click", function (event) {
   async function fetchData() {
     try {
 
-      const res = await fetch(`${serverNetAddress}/employee/insert`, {
+      const res = await fetch(`/employee/insert`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

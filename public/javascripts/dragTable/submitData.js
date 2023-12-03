@@ -58,7 +58,7 @@ btn.onclick = function () {
 
 //定义一个提交数据函数
 async function submitData(data) {
-     let resResult = await fetch(serverNetAddress+'/admin/submit', {
+     let resResult = await fetch('/admin/submit', {
           method: 'POST',
           headers: {
                'Content-Type': 'application/json'

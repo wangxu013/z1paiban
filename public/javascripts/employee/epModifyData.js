@@ -58,7 +58,7 @@ async function submitupdate() {
   //submit update data
  
       try {
-        const res = await fetch(`${serverNetAddress}/employee/update`, {
+        const res = await fetch(`/employee/update`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ async function submitdelete() {
     _id:id
   });
   try {
-    const res = await fetch(`${serverNetAddress}/employee/delete`, {
+    const res = await fetch(`/employee/delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

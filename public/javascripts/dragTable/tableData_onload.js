@@ -1,9 +1,9 @@
 //加载按钮点击事件函数
 function gopage1(){
-  window.location.href=serverNetAddress+"/employee";
+  window.location.href="/employee";
 }
 function gopage2(){
-  window.location.href=serverNetAddress+"/work-schedule";
+  window.location.href="/work-schedule";
 }
 
 
@@ -24,7 +24,7 @@ table_date_next.innerHTML = dateTrans.weektodate("sun", table_date.innerText);
  *需要根据table里的日期,给主机发request,{date="日期"}
  */
 //定义个urlTpr
-let urlTpr = serverNetAddress + "/admin/tabledata?date=";
+let urlTpr =  "/admin/tabledata?date=";
 //从id="table_date"的元素中获取innerText,并赋值给date
 let date = table_date.innerText;
 

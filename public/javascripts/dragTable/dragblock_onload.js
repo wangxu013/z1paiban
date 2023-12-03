@@ -1,7 +1,7 @@
 
 async function dragblock_onload(){
 //发送fetch 请求到 服务器,得到 employee数据ep_db
-let ep_db_t=await fetch(serverNetAddress+'/admin/getemployeedb').catch(err=>{console.log("fetch得到ep db err:"+err);})
+let ep_db_t=await fetch('/admin/getemployeedb').catch(err=>{console.log("fetch得到ep db err:"+err);})
 let ep_db = await ep_db_t.json();
 
 //获得left元素,共3个,父1个,子2个

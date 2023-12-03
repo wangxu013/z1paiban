@@ -2,7 +2,7 @@
 
 //按顺序显示出班表
 //获取当天日期
-let dateReq=new Date().toLocaleDateString();
+let dateReq = new Date().toLocaleDateString();
 console.log("当天:", dateReq);
 
 //获取下周日期
@@ -23,13 +23,13 @@ let dateReq2 = new Date(new Date().setDate(new Date().getDate() + 14)).toLocaleD
   let date1sun = document.getElementById('date1-sun');
   let date2sun = document.getElementById('date2-sun');
   //设置日期
-  date0mon.innerHTML = weektodate('mon',dateReq);
-  date1mon.innerHTML = weektodate('mon',dateReq1);
-  date2mon.innerHTML = weektodate('mon',dateReq2);
-  date0sun.innerHTML = weektodate('sun',dateReq);
-  date1sun.innerHTML = weektodate('sun',dateReq1);
-  date2sun.innerHTML = weektodate('sun',dateReq2);
-})()
+  date0mon.innerHTML = weektodate('mon', dateReq);
+  date1mon.innerHTML = weektodate('mon', dateReq1);
+  date2mon.innerHTML = weektodate('mon', dateReq2);
+  date0sun.innerHTML = weektodate('sun', dateReq);
+  date1sun.innerHTML = weektodate('sun', dateReq1);
+  date2sun.innerHTML = weektodate('sun', dateReq2);
+})();
 
 
 
@@ -42,8 +42,8 @@ async function displaySchedule(dateReq) {
   // console.log("下周数据:",data1);
   let data2 = await getFixedSchedule2DArray(dateReq2);
   // console.log("下下周数据:",data2);
-  
-  
+
+
   //转换成HTML
   document.getElementById('schedule-table-0').innerHTML = arrayToTableHTML(data, 'mytable0');
   //获取table并设置样式
@@ -59,7 +59,7 @@ async function displaySchedule(dateReq) {
   //获取table并设置样式
   let mytable2 = document.getElementById('mytable2');
   mytable2.className = 'table table-bordered table-striped';
-  
+
 
 }
 //执行
@@ -78,13 +78,23 @@ displaySchedule(dateReq);
 async function getFixedSchedule2DArray(dateReq) {
   // console.log(dateReq);
   //fetch服务端
-  let url = new URL(serverNetAddress + '/work-schedule/data_onload');
-  url.searchParams.set('date', dateReq);
-  // console.log(url);
+
+  //构建日期参数对象
+  const dateParams = { date: dateReq };
+
+  //转化日期成url参数字符串
+  const params = new URLSearchParams(dateParams);
+  const paramString = params.toString();
+  // console.log(paramString);
+
+  //组装成新的url
+  let url = '/work-schedule/data_onload?' + paramString;
+
+//发送带日期参数的get请求
   let data = await fetch(url).then(res => res.json()).then(data => {
     return data;
   }).catch(err => {
-    console.log(err,"排班显示,请求班表失败");
+    console.log(err, "排班显示,请求班表失败");
   });
   return data;
 }
