@@ -94,7 +94,6 @@ const employeeSchema = new Schema({
     email: {
         type: String,
       
-        unique: true,
         validate: {
             validator: function (v) {
                 // 检查 v 是否是电子邮件格式的字符串
