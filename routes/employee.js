@@ -9,16 +9,16 @@ router.use(express.urlencoded({
 }));
 router.use(express.json());
 
-// ! --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 
 
-// * GET home page.
+//^ 1. GET home page.
 router.get('/', function (req, res, next) {
   res.render('employee');
 
-}); // ! |||||||||||end||||||||||||GET home page.|||||||||||||||||||||||||
+}); //$ 1. GET home page.
 
-// *GET tabledata mongodb data of Employee 
+//^ 2. GET tabledata mongodb data of Employee 
 router.get('/tabledata', function (req, res, next) {
   //set headers
   res.header("Access-Control-Allow-Origin", "*");
@@ -33,9 +33,9 @@ router.get('/tabledata', function (req, res, next) {
     // console.log(data);
   }).catch(err => console.log(err));
 
-}); //!|||||end|||||||||||||GET tabledata mongodb data of Employee||||||||
+}); //$ 2. GET tabledata mongodb data of Employee 
 
-// *insert data from mongodb
+//^ 3. insert data from mongodb 用save()方法
 router.all('/insert', function (req, res, next) {
   //set headers
   res.header("Access-Control-Allow-Origin", "*");
@@ -54,6 +54,7 @@ router.all('/insert', function (req, res, next) {
     if(!data[0].remarks){
       data[0].remarks = '';
     }
+    //!如果name为"token",就将其number该为"0000"
     //save data from mongodb
     let result = await saveEmployeeData(req.body[0]);
     // console.log('result:',result);
@@ -63,9 +64,9 @@ router.all('/insert', function (req, res, next) {
   //执行
   fixData();
 
-}) // !||||||||||||||end||||||||||||||insert data from mongodb||||||||||||
+}); //$ 3. insert data from mongodb 用save()方法
 
-//*update data from mongodb
+//^ 4. update data from mongodb
 router.all('/update', function (req, res, next) {
   //set headers
   res.header("Access-Control-Allow-Origin", "*");
@@ -91,9 +92,9 @@ router.all('/update', function (req, res, next) {
 
 
 
-}); //!||||||||||||||end||||||||||||||update data from mongodb||||||||||||
+}); //$ 4. update data from mongodb
 
-//*delete data from mongodb
+//^  5. delete data from mongodb
 router.all('/delete', function (req, res, next) {
   //set headers
   res.header("Access-Control-Allow-Origin", "*");
@@ -108,12 +109,13 @@ router.all('/delete', function (req, res, next) {
     // console.log(data);
   }).catch(err => console.log(err));
 
-}); //!||||||||||end|||||||||||||||||delete data from mongodb|||||||||||||
+}); //$ 5. delete data from mongodb
 
 
 
 
-// ! ----------------------定义功能模块对象------------------------------------------------
+
+//----------------------定义功能模块对象------------------------------------------
 //get data form mongodb
 async function getEmployeeData() {
   let data = await Employee.find({},{_v:0}).lean().catch(err => console.log(err));
@@ -135,6 +137,7 @@ async function saveEmployeeData(data) {
 
 return await new Employee(data).save().then((res) => {
   console.log("Employee添加数据保存成功 => name:",res.name);
+  // console.log(res);
  
     return true;
 
@@ -177,6 +180,7 @@ async function generateNumber(date) {
   for (let i = 0; i < data.length; i++) {
     numbers.push(+data[i].number%100);
   }
+  console.log("numbers",numbers);
 
 //如果Numbers为空
   if (numbers.length == 0) {
@@ -186,7 +190,8 @@ async function generateNumber(date) {
     //如果不为空
   } else {
     //求最大值的下一值
-    numbers.reverse();
+    numbers.sort((a, b) => b - a);
+    
     number = +numbers[0] + 1;
    //转为字符串并拼接
     number = number.toString();

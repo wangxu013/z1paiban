@@ -10,12 +10,21 @@
     crossorigin="anonymous">
 	
   <style>
-    body {
-      width: 600px;
+    #container {
+      width: 800px;
       margin: 0 auto;
       text-align: center;
 
     }
+
+    #fill-msg{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+    }
+
+    
 
     
   </style>
@@ -23,15 +32,14 @@
 
 </head>
 
-<body id="body">
+<body>
 	<!-- 主体盒子 -->
-  <div class="container">
+  <div id="container" class="container">
 	  <!-- 头部 -->
     <div class="headcontainer">
-      <div class="row"><h3>Schedules Of Sakura In Kaploei
-        <div class="col left"></div>
-        <div class="col center"></h3></div>
-        <div class="col right"></div>
+      <div class="row">
+        <h3 class="col-sm-8">Schedules Of Sakura In Kaploei</h3>
+        <div class="col-sm-3" id="fill-msg"><a class="" data-toggle="modal" data-target="#myModal" href="#">fill out your info</a></div>
       </div>
 	  <div class="row">
         <!-- 标签页导航 -->
@@ -79,6 +87,70 @@
     </div>
   </div>
   
+
+
+<!-- 模态对话框 -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- 模态对话框头部 -->
+        <div class="modal-header">
+          <h4 class="modal-title">Adding My Information</h4>
+
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- 模态对话框主体 -->
+        <div class="modal-body">
+          *name (show on schedule):
+          <input type="text" id="data_name" class="form-control" placeholder="max 12 letters">
+          enrollment data:
+          <input type="date" id="data_date" class="form-control" >
+          *position:
+          <select class="form-control" id="data_position" name="position">
+            <option value="host">host</option>
+            <option value="bartender">bartender</option>
+            <option value="server">server</option>
+            <option value="busser">busser</option>
+            <option value="trainee">trainee</option>
+          </select>
+          *phone number:
+          <input type="tel" id="data_phone" class="form-control" placeholder="10 digits phone number">
+          status:
+          <select class="form-control" name="status" id="data_status">
+            <option value="onJob" selected>full time</option>
+            <option value="partTime">part time</option>
+            <option value="others">others or unknow</option>
+          </select>
+          email:
+          <input type="email" id="data_email" class="form-control" placeholder="optional">
+          *token number:
+          <input type="text" id="data_token" class="form-control" placeholder="last 4 digits code" pattern="[0-9]{10}">
+        </div>
+
+
+        <!-- 模态对话框底部 -->
+        <div class="modal-footer d-flex justify-content-between">
+          <div>
+            <!-- <button type="button" class="btn btn-warning" onclick="submitdelete()" data-dismiss="modal">删除 X</button> -->
+          </div>
+          <div>
+            <button type="button" class="btn btn-success" onclick="submitfill()" data-dismiss="modal">Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- 加上默认日期今天 -->
+<script>
+  document.getElementById('data_date').valueAsDate = new Date(new Date().toLocaleDateString());
+</script>
+
 <!-- 引入 jQuery 和 Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -88,6 +160,7 @@
 
  <script type="text/javascript" src="/javascripts/assets/dateTrans_module.js"></script>
  <script type="text/javascript" src="/javascripts/work-schedule/scdOnload.js"></script>
+ <script type="text/javascript" src="/javascripts/work-schedule/scdSubmitFill.js"></script>
 
  
 </body>

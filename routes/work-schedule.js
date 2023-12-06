@@ -9,18 +9,18 @@ const dateTrans = require('../assets/js/dateTrans_module');
 const WorkSchedule = require('../mongodb/mg_model_module').WorkSchedule;
 
 
-//*GET home page. 
+//^ 1. GET home page. 
 router.get('/', function (req, res, next) {
 
   res.render('work-schedule');
   return;
 
-});
+});//$ 1. GET home page. 
 
 
 
 
-/* GET /data_onload */
+//^ 2. GET /data_onload
 router.all('/data_onload', function (req, res, next) {
   //跨域请求
   res.header("Access-Control-Allow-Origin", "*");
@@ -57,13 +57,15 @@ router.all('/data_onload', function (req, res, next) {
 
   //执行
   responseDate(dateReq);
-});
+});//$ 2. GET /data_onload
+
+
 
 
 //!--------------------------------------------------------------------
 
 
-//*获得数据库排班表数据
+//^ 1. 获得数据库排班表数据
 async function getScheduleData(dateReq) {
   // console.log(dateReq,2);
   //获取指定日期的"整周日期数据"
@@ -97,10 +99,10 @@ async function getScheduleData(dateReq) {
   }
   // console.log(dbFixed,1);
   return dbFixed;
-}//!||||||||||||||||end||||||||||||||||||获得数据库排班表数据||||||||||||||||||
+}//$ 1. 获得数据库排班表数据
 
 
-//*2D Array排班表函数,  输入一个日期,返回该日期的整周的安排,二维数组结果
+//^ 2. 设置2D Array排班表函数,  输入一个日期,返回该日期的整周的安排,二维数组结果
 async function getTwoDArray_schedule(dateReq) {
   let db = await getScheduleData(dateReq);
   //键值,all names
@@ -151,7 +153,7 @@ tableArr.unshift(newH);
 
   return tableArr;
 
-}//!||||||||||end||||||||||||||||||||2D Array排班表函数||||||||||||||||||||||||||||
+}//$ 2. 设置2D Array排班表函数,  输入一个日期,返回该日期的整周的安排,二维数组结果
 
 
 

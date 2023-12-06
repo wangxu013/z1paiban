@@ -134,7 +134,7 @@
             <option value="trainee">trainee</option>
           </select>
           phone number:
-          <input type="text" id="data_phone" class="form-control" placeholder="电话 长度10位">
+          <input type="text" id="data_phone" class="form-control" placeholder="电话 长度10位" pattern="[0-9]{10}">
           status:
           <select class="form-control" name="status" id="data_status">
             <option value="onJob" selected>在职 onJob</option>
@@ -163,6 +163,12 @@
   </div>
 
   </div>
+
+
+<!-- 加上默认日期今天 -->
+<script>
+  document.getElementById('date').valueAsDate = new Date(new Date().toLocaleDateString());
+</script>
 
 
 

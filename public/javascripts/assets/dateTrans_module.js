@@ -17,7 +17,7 @@ function isYearNum(str) {
 }
 
 //星期转日期, 用 "周几",或者 "周几","日期date",返回默认本周的 或者 date所在周的,相同星期的日期数据
-function weektodate(weekStr, date='') {
+function weektodate(weekStr, date = '') {
   //参数为 mon 10/12/2023,date的限制不多,只要能解析为时间即可
 
   if (/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)$/i.test(weekStr)) {
@@ -56,14 +56,15 @@ function weektodate(weekStr, date='') {
 
 //规范date数据格式,转为"10/25/2023"的格式
 function dateformat(date) {
-  /*日期数据字符串,输入的参数 仅仅可以有4种格式:
-    1.仅有一个字母的样式,如 "Mon", "mon";
-    2.仅有一个数字的样式,如 25 , "25";
-    3.含有"/"的样式,如"10/25/2023", "10/25";
-    4.含有"-"的样式,如"2023-10-25", "10-25";
-  //!根据以上4种格式,对date进行判断,并转化为"10/25/2023"的格式
+  /*
+  *日期数据字符串,输入的参数 仅仅可以有4种格式:
+  *  1.仅有一个字母的样式,如 "Mon", "mon";
+  *  2.仅有一个数字的样式,如 25 , "25";
+  *  3.含有"/"的样式,如"10/25/2023", "10/25";
+  *  4.含有"-"的样式,如"2023-10-25", "10-25";
+  !根据以上4种格式,对date进行判断,并转化为"10/25/2023"的格式
   */
-  
+
   try {
 
     //判断date为星期几,缺月份,缺年份,默认为当前年月周内的星期几,转化为日期数据
@@ -75,9 +76,9 @@ function dateformat(date) {
       let today = new Date().toLocaleDateString();
       date = today.split("/")[0] + "/" + date + "/" + today.split("/")[2];
       //判读号数是不是超出该月的最大号数
-      if(new Date(date).getMonth() == new Date().getMonth()){
+      if (new Date(date).getMonth() == new Date().getMonth()) {
         return date;
-      }else{
+      } else {
         throw "输入的号数在该月中不存在!!!";
       }
       //判断date为xx/xx/xxxx格式,或者x/x/xxxx格式

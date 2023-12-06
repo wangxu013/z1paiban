@@ -1,3 +1,4 @@
+//引入模块
 var express = require('express');
 var router = express.Router();
 
@@ -5,6 +6,8 @@ var router = express.Router();
 const dateTrans = require('../assets/js/dateTrans_module');
 //引入数据库操作文件
 const WorkSchedule = require('../mongodb/mg_model_module').WorkSchedule;
+const User = require('../mongodb/mg_model_module').User;
+const Employee = require('../mongodb/mg_model_module').Employee;
 
 
 //引入请求体分析中间件
@@ -14,19 +17,41 @@ router.use(express.urlencoded({
 }));
 router.use(express.json());
 
+//定义user密码检查中间件
+checkPassword = (req, res, next) => {
+  // console.log("进入checkPassword中间件");
+  // console.log(req.body);
+  let user = req.body.user;
+  let password = req.body.password;
+  // console.log(user, password);
+
+  //比对数据库user密码是否正确
+  if (User.find({ username: user, password: password })) {
+    // console.log("密码正确");
+    next();
+  } else {
+    // console.log("密码错误");
+    res.send({
+      code: "fail",
+      msg: "密码错误"
+    });
+  }
+};
 
 
 
-//!----------------------------------------------------------------------------------
 
-//**GET dragTable page. 响应dragTable.html页面
+//----------------------------------------------------------------------------------
+
+//^ 1. GET dragTable page. 响应dragTable.html页面
 router.get('/', function (req, res, next) {
   // res.render("dragTable-copy.ejs");
   res.render('dragTable.ejs');
-}); // ! |||||||||||end响应dragTable.html页面|||||||||||||||||||||||||||||||||
+}); //$ 1. GET dragTable page. 响应dragTable.html页面
 
-//*response fetch, from /getemployeedb 即dragblock
+//^ 2. response fetch, from /getemployeedb 即dragblock
 router.all('/getemployeedb', function (req, res, next) {
+
   //?响应头允许跨域
   res.header("Access-Control-Allow-Origin", '*');
   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With,application/json");
@@ -34,46 +59,40 @@ router.all('/getemployeedb', function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true); //可以带cookies
   res.header("X-Powered-By", 'Express');
 
-  console.log("进入/getemployeedb");
+  // console.log("进入/getemployeedb");
 
   //?get data from mongodb/employee
-  //!require Employee module
-  let Employee = require('../mongodb/mg_model_module').Employee;
-
-  //!set async getemployeedb()
-  async function getemployeedb() {
-    //get data from mongodb/employee
-    ep_db = await Employee.find({
-      $or: [{
-        status: "onJob"
-      }, {
-        status: "partTime"
-      }]
-    }, {
+  Employee.find(
+    { $or: [{ status: "onJob" }, { status: "partTime" }] },
+    {
       _id: 0,
       number: 1,
       name: 1,
       status: 1,
-      posNumber:1
-    }).lean().sort({
+      posNumber: 1
+    }
+  ).lean().sort(
+    {
       status: 1,
       posNumber: 1,
       number: 1
-    }).catch(err => {
+    }
+  ).exec().then(
+    ep_db => {
+      // console.log(ep_db);
+      //将数据返回给前端
+      res.json(ep_db);
+      res.end();
+    }
+  ).catch
+    (err => {
       console.log("Employee读取:", err);
-    });
-    // console.log(ep_db);
-    //将数据返回给前端
-    res.json(ep_db);
-    res.end();
+      return;
+    }
+    );
+}); //$ 2. response fetch, from /getemployeedb 即dragblock
 
-  }
-
-  //!执行
-  getemployeedb();
-}) // ! |||||||||||end |||||response fetch, from /getemployeedb|||||||||||||
-
-//* response fetch, from submit btn
+//^ 3. response fetch, from submit btn
 router.all('/submit', function (req, res, next) {
   //?响应头允许跨域
   res.header("Access-Control-Allow-Origin", '*');
@@ -146,9 +165,9 @@ router.all('/submit', function (req, res, next) {
     res.json('workSchedules上传,并修改成功');
     res.end();
   };
-}); // ! |||||||||end||||||submit btn|||||||||||||||||||||||||||||||||||||||
+}); //$ 3. response fetch, from submit btn
 
-//* response fetch, from page table data onload
+//^ 4. response fetch, from page table data onload
 router.all('/tabledata', function (req, res, next) {
   //?res header setting
   res.header("Access-Control-Allow-Origin", '*');
@@ -226,10 +245,10 @@ router.all('/tabledata', function (req, res, next) {
   }
 
 
-}); // ! |||||||end|||||||page table data onload||||||||||||||||||||||||
+}); //$ 4. response fetch, from page table data onload
 
 
 
 
-//!----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
 module.exports = router;
