@@ -93,11 +93,12 @@ const employeeSchema = new Schema({
     },
     email: {
         type: String,
+
       
         validate: {
             validator: function (v) {
                 // 检查 v 是否是电子邮件格式的字符串
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+                return (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))||v=="";
             }
         }
     },
