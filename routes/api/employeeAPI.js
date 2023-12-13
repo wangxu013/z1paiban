@@ -1,7 +1,6 @@
 //引入模块
 
 const express = require('express');
-const cors = require('cors');
 //创建路由对象
 
 const router = express.Router();
@@ -10,12 +9,6 @@ const router = express.Router();
 
 const Employee = require('../../mongodb/mg_model_module').Employee;
 
-//引入请求体分析中间件
-
-// router.use(express.urlencoded({extended: false}));
-router.use(express.json());
-//启动跨域中间件
-router.use(cors());
 
 
 //-----------------------------------------------------------------------------
@@ -25,7 +18,7 @@ router.use(cors());
 router.post('/employee/fill', (req, res) => {
 
   //?先判断url携带的token参数是否在Employee数据库存在,核对token number
-  console.log(00,req.body.data);
+  console.log(11,req.body.data);
   Employee.findOne({ name: "token", phone: req.query.token }).lean().exec().then(
     data => {
       //?检查token是否过期

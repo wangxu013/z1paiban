@@ -1,0 +1,47 @@
+<h3>信息提示</h3>
+<div id="msgDiv" style="background-color: rgba(127, 255, 212, 0.518);border-radius: 5px;">
+  <h1>Status: <span id="status"><%= status %></span></h1>
+<h2>Message: <%= msg %></h2>
+
+</div>
+
+<div>
+  <h3>Skip the page in <span id="timeNum">10</span>s:
+    <% if((typeof link !== 'undefined') && link){ %>
+      <a id="myLink" href="<%= link%>">
+
+          <% if(typeof linkName !== "undefined" && linkName){ %>
+            <%= linkName%>
+          <% }else{ %>
+            <%= link %>
+          <% } %>
+
+      </a>
+    <% }else{ %>
+      <a id="myLink" href="javascript:history.back(-1);">回到上一页</a>
+    <% } %>
+  </h3>
+</div>
+
+<script type="text/javascript">
+  let myLink = document.getElementById('myLink');
+  let timeNum = document.getElementById('timeNum');
+  let msgDiv = document.getElementById('msgDiv');
+  let status = document.getElementById('status');
+
+  if (status.innerHTML!=="0"){
+    msgDiv.style.backgroundColor = "pink";
+  }
+
+  let num = 10;
+  let timer = setInterval(() => {
+    timeNum.innerHTML = --num;
+    if (num <= 0){
+      clearInterval(timer);
+    }
+  }, 1000);
+
+    setTimeout(function () {
+    myLink.click();
+  }, 10000);
+</script>

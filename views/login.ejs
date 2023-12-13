@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    crossorigin="anonymous">
+  <style>
+    div.container {
+      width: 800px;
+      height: 800px;
+      background-image: url("/images/cherry-blossom-75.webp");
+      background-repeat: no-repeat;
+      background-size: contain;
+
+    }
+  </style>
+  <title>login</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="headcontainer">
+      <br>
+      <div class="row">
+        <div class="col-sm-12" style="display: flex;justify-content: center;">
+          <h3>Sakura In Kapolei</h3>
+        </div>
+      </div>
+     
+
+    </div>
+    <div class="bodycontainer">
+
+      <div class="row">
+        <div class="col-sm-5"></div>
+        <!-- div.col-sm-7 sign in 框开始 -->
+        <div class="col-sm-7">
+          <br>
+          <div class="row" style="display: flex;justify-content: center;">
+            <h3>Sign In</h3>
+          </div> <a href="/users/register">sign up 注册</a>
+
+          <!-- 表单start -->
+          <form method="post" action="/acc/login">
+            <br>
+
+            <div class="form-group row">
+              <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-10" style="display: flex;align-items: flex-end;">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gridCheck" name="keepLogin">
+                  <label class="form-check-label" for="gridCheck">
+                    Keep login for one week
+                  </label>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 id="loginMsg"></h5>
+              </div>
+            </div>
+            <br>
+            <div class="form-group row ">
+              <div class="col-sm-12" style="display: flex;justify-content: flex-end;">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+              </div>
+            </div>
+          </form>
+          <!-- 表单end -->
+
+          <br>
+
+          <div class="row">
+            <div class="col-sm-12" id="reset" style="display: flex;justify-content: flex-end;">Click the&nbsp;<a
+                id="resetLink" href="#">reset </a>&nbsp;for forgot password</div>
+          </div>
+
+        </div>
+        <!-- div.col-sm-7 sign in 框结束 -->
+
+      </div>
+    </div>
+    <div class="footer">
+
+    </div>
+  </div>
+
+
+
+  <!-- 引入 jQuery 和 Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- 自定义js -->
+  <script>
+    let resetLink = document.getElementById('resetLink');
+
+    resetLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      let email = document.getElementById("inputEmail").value;
+      let password = document.getElementById("inputPassword").value;
+      let token = prompt("请输入修改密码许可token");
+
+      fetch("/acc/restPassword", {
+        method: "post",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, token }),
+      })
+        .then(response => response.text())
+        .then(html => {
+          document.body.innerHTML = html;
+          //使scrip运行起来,当使用innerHTML属性插入HTML代码,浏览器都不会执行这些HTML代码中的JavaScript代码
+          let jsHTML = document.getElementsByTagName("script")[0].innerHTML;
+          let script = document.createElement('script');
+          script.innerHTML = jsHTML;
+          //删除原来的script
+          if (document.body.lastChild !== "null") {
+            document.body.removeChild(document.body.lastChild);
+          }
+          //添加"script元素"而非HTML
+          document.body.appendChild(script);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    })
+
+  </script>
+</body>
+
+</html>

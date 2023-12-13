@@ -3,19 +3,13 @@ var express = require('express');
 var router = express.Router();
 
 //引入日期转化模块
-const dateTrans = require('../assets/js/dateTrans_module');
+const dateTrans = require('../../assets/js/dateTrans_module');
 //引入数据库操作文件
-const WorkSchedule = require('../mongodb/mg_model_module').WorkSchedule;
-const User = require('../mongodb/mg_model_module').User;
-const Employee = require('../mongodb/mg_model_module').Employee;
+const WorkSchedule = require('../../mongodb/mg_model_module').WorkSchedule;
+const User = require('../../mongodb/mg_model_module').User;
+const Employee = require('../../mongodb/mg_model_module').Employee;
 
 
-//引入请求体分析中间件
-
-router.use(express.urlencoded({
-  extended: false
-}));
-router.use(express.json());
 
 //定义user密码检查中间件
 checkPassword = (req, res, next) => {
@@ -25,13 +19,22 @@ checkPassword = (req, res, next) => {
   let password = req.body.password;
   // console.log(user, password);
 
+  //获取数据库user数据
+  let data = User.findOne({ username: user, password: password });
+
   //比对数据库user密码是否正确
-  if (User.find({ username: user, password: password })) {
+  if (data) {
     // console.log("密码正确");
+    //写入session
+    req.// 将数据保存在session
+    req.session.islogin = true;
+    req.session._id = data._id;
+    req.session.username = data.username;
+    
     next();
   } else {
     // console.log("密码错误");
-    res.send({
+    res.json({
       code: "fail",
       msg: "密码错误"
     });

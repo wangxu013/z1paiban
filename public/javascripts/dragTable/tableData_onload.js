@@ -10,9 +10,9 @@ function gopage2(){
 /*
  *初始化表头日期
  */
-//获取表头上两个p元素
+//获取表头上两个span元素
 let table_date = document.getElementById('table_date');
-table_date.innerText = new Date().toLocaleDateString();
+table_date.innerText = dateTrans.weektodate("mon", new Date().toLocaleDateString()); 
 //获取table_date的下一个兄弟元素
 let table_date_next = table_date.nextElementSibling;
 table_date_next.innerHTML = dateTrans.weektodate("sun", table_date.innerText);

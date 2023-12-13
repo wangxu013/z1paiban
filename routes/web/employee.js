@@ -1,13 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const Employee = require('../mongodb/mg_model_module').Employee;
+const Employee = require('../../mongodb/mg_model_module').Employee;
 
-//引入请求体分析中间件
-router.use(express.urlencoded({
-  extended: false
-}));
-router.use(express.json());
 
 // --------------------------------------------------------------------------
 

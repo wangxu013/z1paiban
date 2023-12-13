@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 //引入数据库数据转化模块
-const dbTrans = require('../assets/js/dbTo2DArray_module.js');
+const dbTrans = require('../../assets/js/dbTo2DArray_module.js');
 //引入日期转化模块
-const dateTrans = require('../assets/js/dateTrans_module');
+const dateTrans = require('../../assets/js/dateTrans_module.js');
 
 //引入数据库操作文件
-const WorkSchedule = require('../mongodb/mg_model_module').WorkSchedule;
+const WorkSchedule = require('../../mongodb/mg_model_module.js').WorkSchedule;
 
 
 //^ 1. GET home page. 
@@ -80,8 +80,8 @@ async function getScheduleData(dateReq) {
     workdate: {
       $in: dates
     }
-  }).select('employeename employeenumber workdate shift position').lean().sort({
-    position: 1,
+  }).select('employeename employeenumber workdate shift position posNumber').lean().sort({
+    posNumber: 1,
     employeenumber: 1,
     shift: 1
   }).catch(err => console.log(err));

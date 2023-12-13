@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Employee Document</title>
+  <title>Schedules Of Sakura In Kaploei</title>
   <!--bts v4.5.2 minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     crossorigin="anonymous">
-	
+
   <style>
     #container {
       width: 800px;
@@ -17,79 +17,104 @@
 
     }
 
-    #fill-msg{
+    #fill-msg {
       display: flex;
       align-items: center;
       justify-content: flex-end;
 
     }
 
-    
+    @media print {
+      header {
+        content: "我的网页";
+      }
 
-    
+      footer {
+        content: "版权所有 © 2023";
+      }
+
+      div.headcontainer{
+        display:none;
+      }
+
+      #schedule-table h4{
+        display: none;
+      }
+
+
+
+    }
+
+    @page {
+      size: A4;
+      orientation: portrait;
+      margin: 1cm;
+    }
   </style>
 
 
 </head>
 
 <body>
-	<!-- 主体盒子 -->
+  <!-- 主体盒子 -->
   <div id="container" class="container">
-	  <!-- 头部 -->
+    <!-- 头部 -->
     <div class="headcontainer">
       <div class="row">
         <h3 class="col-sm-8">Schedules Of Sakura In Kaploei</h3>
-        <div class="col-sm-3" id="fill-msg"><a class="" data-toggle="modal" data-target="#myModal" href="#">fill out your info</a></div>
+        <div class="col-sm-3" id="fill-msg"><a class="" data-toggle="modal" data-target="#myModal" href="#">fill out
+            your info</a></div>
       </div>
-	  <div class="row">
+      <div class="row">
         <!-- 标签页导航 -->
-	   <ul class="nav nav-tabs" role="tablist">
-	     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#thisweek">This Week▼&nbsp;&nbsp;</a></li>
-	     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nextweek">Next Week▼&nbsp;&nbsp;</a></li>
-	     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#afternext">Week After Next▼&nbsp;&nbsp;</a></li>
-	   </ul>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#thisweek">This Week▼&nbsp;&nbsp;</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nextweek">Next Week▼&nbsp;&nbsp;</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#afternext">Week After Next▼&nbsp;&nbsp;</a>
+          </li>
+        </ul>
       </div>
     </div>
-	<!-- 体部 -->
+    <!-- 体部 -->
     <div class="bodycontainer">
-		<!-- 行框1 -->
+      <span>Sakura Tappenyaki Sushi </span><br>
+      <!-- 行框1 -->
       <div id='schedule-table' class="row container schedule-table">
-       
-	   <!-- 标签页内容 -->
-	   <div class="tab-content">
-	     <div id="thisweek" class="tab-pane active">
-	       <h4>From <span id="date0-mon"></span> To <span id="date0-sun"></span></h4>
-	       <div id="schedule-table-0" class="table">Some content.</div>
-	     </div>
-	     <div id="nextweek" class="tab-pane fade">
-	       <h4>From <span id="date1-mon"></span> To <span id="date1-sun"></span></h4>
-	      <div id="schedule-table-1" class="table">Some content.</div>
-	     </div>
-	     <div id="afternext" class="tab-pane fade">
-	       <h4>From <span id="date2-mon"></span> To <span id="date2-sun"></span></h4>
-	      <div id="schedule-table-2" class="table">Some content.</div>
-	     </div>
-	   </div>
 
-	   
-          
-	  
-	  </div>
-	  
-	  <!-- 行框n -->
+        <!-- 标签页内容 -->
+        <div class="tab-content">
+          <div id="thisweek" class="tab-pane active">
+            <h4>From <span id="date0-mon"></span> To <span id="date0-sun"></span></h4>
+            <div id="schedule-table-0" class="table">Some content.</div>
+          </div>
+          <div id="nextweek" class="tab-pane fade">
+            <h4>From <span id="date1-mon"></span> To <span id="date1-sun"></span></h4>
+            <div id="schedule-table-1" class="table">Some content.</div>
+          </div>
+          <div id="afternext" class="tab-pane fade">
+            <h4>From <span id="date2-mon"></span> To <span id="date2-sun"></span></h4>
+            <div id="schedule-table-2" class="table">Some content.</div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+      <!-- 行框n -->
       <div class="row">
-		  <!-- 块包 -->
-      Working Time: Mon-Thu:10:30-14:30 16:30-21:30; Fei-Sat:10:30-15:00 16:30-22:00; 
-     
-      Sun:11:30-15:00 16:00-21:30
-     
+        <!-- 块包 -->
+        Working Time: Mon-Thu:10:30-14:30 16:30-21:30; Fei-Sat:10:30-15:00 16:30-22:00; Sun:11:30-15:00 16:00-21:30
+
       </div>
     </div>
   </div>
-  
 
 
-<!-- 模态对话框 -->
+
+  <!-- 模态对话框 -->
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -106,7 +131,7 @@
           *name (show on schedule):
           <input type="text" id="data_name" class="form-control" placeholder="max 12 letters">
           enrollment data:
-          <input type="date" id="data_date" class="form-control" >
+          <input type="date" id="data_date" class="form-control">
           *position:
           <select class="form-control" id="data_position" name="position">
             <option value="host">host</option>
@@ -126,7 +151,7 @@
           email:
           <input type="email" id="data_email" class="form-control" placeholder="optional">
           *token number:
-          <input type="text" id="data_token" class="form-control" placeholder="last 4 digits code" pattern="[0-9]{10}">
+          <input type="tel" id="data_token" class="form-control" placeholder="last 4 digits code" pattern="[0-9]{10}">
         </div>
 
 
@@ -146,23 +171,23 @@
 
 
 
-<!-- 加上默认日期今天 -->
-<script>
-  document.getElementById('data_date').valueAsDate = new Date(new Date().toLocaleDateString());
-</script>
+  <!-- 加上默认日期今天 -->
+  <script>
+    document.getElementById('data_date').valueAsDate = new Date(new Date().toLocaleDateString());
+  </script>
 
-<!-- 引入 jQuery 和 Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  
- <!--路径for服务器 -->
+  <!-- 引入 jQuery 和 Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
- <script type="text/javascript" src="/javascripts/assets/dateTrans_module.js"></script>
- <script type="text/javascript" src="/javascripts/work-schedule/scdOnload.js"></script>
- <script type="text/javascript" src="/javascripts/work-schedule/scdSubmitFill.js"></script>
 
- 
+  <!--路径for服务器 -->
+
+  <script type="text/javascript" src="/javascripts/assets/dateTrans_module.js"></script>
+  <script type="text/javascript" src="/javascripts/work-schedule/scdOnload.js"></script>
+  <script type="text/javascript" src="/javascripts/work-schedule/scdSubmitFill.js"></script>
+
+
 </body>
 
 </html>

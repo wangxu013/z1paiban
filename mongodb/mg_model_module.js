@@ -35,9 +35,33 @@ const workScheduleSchema = new Schema({
     remarks: {
         type: String,
         maxlength: 50
+    },
+    //posNum用于,职位名排序
+    //设定预处理后得到的职位对应数字
+    posNumber: {
+        type: String
     }
 
 });
+
+//添加预处理行为
+
+workScheduleSchema.pre('save', function (next) {
+    if (this.position == "host") {
+        this.posNumber = "1";
+    } else if (this.position == "bartender") {
+        this.posNumber = "2";
+    } else if (this.position == "server") {
+        this.posNumber = "3";
+    } else if (this.position == "busser") {
+        this.posNumber = "4";
+    } else if (this.position == "trainee") {
+        this.posNumber = "5";
+    };
+    
+    next();
+});
+
 
 //* 2.schema-------------------------------------------------------------
 
@@ -62,7 +86,7 @@ const employeeSchema = new Schema({
     },
     position: {
         type: String,
-        enum: ["host", "bartender", "server", "busser", "trainee", "unknow"],
+        enum: ["host", "bartender", "server", "busser", "trainee", "unknown"],
         required: true
     },
     phone: {
@@ -93,8 +117,6 @@ const employeeSchema = new Schema({
     },
     email: {
         type: String,
-
-      
         validate: {
             validator: function (v) {
                 // 检查 v 是否是电子邮件格式的字符串
@@ -129,8 +151,8 @@ employeeSchema.pre('save', function (next) {
     if (this.name === "token") {
         this.createdAt = new Date();
         this.number = "";
-        this.position = "unknow";
-        this.status = "unknow";
+        this.position = "unknown";
+        this.status = "unknown";
         this.remarks = "The token number is for new employee to register personal information! Last 4 digit phone number is the code.";
         // this.date = new Date.setDate( new Date().getDate()+1).toLocaleDateString();
         let date = new Date();
@@ -157,6 +179,24 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function (v) {
+                // 检查 v 是否是电子邮件格式的字符串
+                return (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) || v == "";
+            }
+        }
+    },
+    role:{
+        type:String,
+        enum:["administer","user","unknown"],
+        default:"user"
+    },
+    token:{
+        type:String
     }
 });
 
