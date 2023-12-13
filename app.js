@@ -32,7 +32,7 @@ app.use(cors());
 //启用会话中间件
 app.use(session({
     // name: 'sakura',
-    secret: 'secret',
+    secret: 'secret-sakura',
     resave: true,
     saveUninitialized: false,
     cookie: {
