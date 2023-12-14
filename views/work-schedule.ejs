@@ -25,30 +25,32 @@
     }
 
     @media print {
-      header {
-        content: "我的网页";
-      }
 
-      footer {
-        content: "版权所有 © 2023";
-      }
-
-      div.headcontainer{
-        display:none;
-      }
-
-      #schedule-table h4{
+      div.headcontainer {
         display: none;
       }
 
+      #schedule-table h4 {
+        display: none;
+      }
+
+      #restaurantTitle{
+        display: none;
+      }
+
+      div.bodycontainer {
+        margin: 0 auto;
+        width: 21cm;
+        height: 29.7cm;
+      }
+
+      @page {
+        size: A4;
+        orientation: portrait;
+        margins: 0 1cm;
+      }
 
 
-    }
-
-    @page {
-      size: A4;
-      orientation: portrait;
-      margin: 1cm;
     }
   </style>
 
@@ -76,9 +78,10 @@
         </ul>
       </div>
     </div>
+
     <!-- 体部 -->
     <div class="bodycontainer">
-      <span>Sakura Tappenyaki Sushi </span><br>
+      <span id="restaurantTitle">Sakura Tappenyaki Sushi </span><br>
       <!-- 行框1 -->
       <div id='schedule-table' class="row container schedule-table">
 

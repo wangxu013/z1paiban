@@ -72,7 +72,7 @@ displaySchedule(dateReq);
 
 
 
-//!----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
 
 //*fetch get table 2dArr table date
 async function getFixedSchedule2DArray(dateReq) {
@@ -96,7 +96,17 @@ async function getFixedSchedule2DArray(dateReq) {
   }).catch(err => {
     console.log(err, "排班显示,请求班表失败");
   });
-  return data;
+
+  //!修改"name"为"^":检查上行的第一列是否和当前行的第一列相同,如果相同就将当前行的第一列值该为"^"
+  let tableArr = data;
+  for (let i = 1; i < tableArr.length; i++) {
+    if (tableArr[i][0] == tableArr[i - 1][0]) {
+      tableArr[i][0] = "^";
+    }
+  }
+  
+  //?返回数据
+  return tableArr;
 }
 
 

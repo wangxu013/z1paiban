@@ -105,17 +105,30 @@ async function getScheduleData(dateReq) {
 //^ 2. 设置2D Array排班表函数,  输入一个日期,返回该日期的整周的安排,二维数组结果
 async function getTwoDArray_schedule(dateReq) {
   let db = await getScheduleData(dateReq);
-  //键值,all names
-  let nameValues = dbTrans.getvalues(db, "name");
-  //取其一日期生成一周的日期
+  //?获取所有名字; all names的键值
+  /*
+  *let nameValues = dbTrans.getvalues(db, "name");//所有值会自动进行字母排序,不适合这里
+  只能手动获取所有name了
+  */
+  let nameValues;
+  if (db) {
+    nameValues = db.map(item => item.name);
+  }
+  //去重
+  nameValues = [...new Set(nameValues)];
+  // console.log(nameValues,2);
+
+
+  //?取其一日期生成一周的日期
   let weeks = dateTrans.getWeekDate(dateReq);
 
-  //表格tableArr
-  let tableArr = [];
-
-  //headers为name,time,...七天星期+日期
-  //行首一为name,行首二为am,pm
+  //?headers为name,time,...七天星期+日期
   let headers = ["name", "time", ...weeks];
+
+  //?生成表格body:tableArr; 按nameValues来
+  let tableArr = [];
+  
+  //!每两行第一col为"同个name",第二个col分别为"am","pm"
   for (let i = 0; i < nameValues.length * 2; i++) {
     for (let j = 0; j < headers.length; j++) {
       if (tableArr[i] == undefined) {
@@ -140,17 +153,47 @@ async function getTwoDArray_schedule(dateReq) {
     }
   }
   // console.log(tableArr,4);
+
+  //?更新 新的格式的表头
  let newH= headers.map(item => {
     if (dateTrans.isMDYdate(item)) {
       item = dateTrans.getWeekShortName(item) + item.slice(0, -5);
     }
     return item;
   })
+  //新表头插入表格前面
 tableArr.unshift(newH);
-
   // console.log(tableArr,5);
   // console.table(tableArr);
 
+//?优化表格
+//!删除空行:如果同一行第三列以及之后的列全部为为空,就删除该整行
+  for (let i = 0; i < tableArr.length; i++) {
+    let emptyCol = true;
+    for (let j = 2; j < tableArr[i].length; j++) {
+      if (tableArr[i][j] != "") {
+        emptyCol = false;
+        break;
+      }
+    }
+    if (emptyCol) {
+      tableArr.splice(i, 1);
+      i--;
+    }
+  }
+/*
+*放到客户端去修改
+  //!修改"name"为"^":检查上行的第一列是否和当前行的第一列相同,如果相同就将当前行的第一列值该为"^"
+  for (let i = 1; i < tableArr.length; i++) {
+    if (tableArr[i][0] == tableArr[i - 1][0]) {
+      tableArr[i][0] = "^";
+    }
+  }
+*/
+
+  // console.table(tableArr);
+
+//?返回结果
   return tableArr;
 
 }//$ 2. 设置2D Array排班表函数,  输入一个日期,返回该日期的整周的安排,二维数组结果
