@@ -2,7 +2,7 @@
 
 module.exports = (req, res, next) => {
   // 判断路径是否为开发路径
-  if (req.path === "/users/login" || req.path === "/users/register" || req.path.match(/^\/acc/) || req.path.match(/^\/work-schedule/)) {
+  if (req.path === "/" || req.path === "/users/login" || req.path === "/users/register" || req.path.match(/^\/acc/) || req.path.match(/^\/work-schedule/)) {
     return next();
   }
 
