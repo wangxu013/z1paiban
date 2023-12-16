@@ -110,14 +110,33 @@ async function getFixedSchedule2DArray(dateReq) {
 }
 
 
-//*二维数组转换成HTML,参数一为二维数组数据,参数二维table的id名。
+//*二维数组转换成HTML
+/**
+ * 这个函数的作用是返回table的HTML字符串,包括了table自身标签
+ * @param {array[]} data -参数的作用是提供表格的二维数组数据
+ * @param {string} idStr -参数的作用是生成table元素的#id名
+ * @returns {string} -返回table的HTML字符串
+ */
 function arrayToTableHTML(data, idStr) {
   var table = document.createElement('table');
   table.id = idStr;
   for (var i = 0; i < data.length; i++) {
     var row = document.createElement('tr');
+    
+    //?设置表头样式
+    if (i === 0) {
+      row.className = 'thead-dark';
+    }
+        
+    //?设置表格内容
+    else if (data[i][1]) {
+      row.className = `row-`+data[i][1];
+    }
+
+
+
     for (var j = 0; j < data[i].length; j++) {
-      var cell = document.createElement(i === 0 ? 'th' : 'td');
+      var cell = document.createElement(i === 0 || j === 0  ? 'th' : 'td');
       cell.textContent = data[i][j];
       row.appendChild(cell);
     }
