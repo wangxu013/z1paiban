@@ -60,40 +60,49 @@ function dateformat(date) {
     1.仅有一个字母的样式,如 "Mon", "mon";
     2.仅有一个数字的样式,如 25 , "25";
     3.含有"/"的样式,如"10/25/2023", "10/25";
+    3b.含有" "的样式,如"2023/10/25";
     4.含有"-"的样式,如"2023-10-25", "10-25";
-  //!根据以上4种格式,对date进行判断,并转化为"10/25/2023"的格式
+    
+  //*根据以上4种格式,对date进行判断,并转化为"10/25/2023"的格式
   */
-  
+
   try {
 
-    //判断date为星期几,缺月份,缺年份,默认为当前年月周内的星期几,转化为日期数据
+    //! 1. 判断date为星期几,缺月份,缺年份,默认为当前年月周内的星期几,转化为日期数据
     if (/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)$/i.test(date)) {
       return weektodate(date);
 
-      //判断date为月份号数,缺月份,缺年份,默认为当前年月份
+      //! 2. 判断date为日期号数,缺月份,缺年份,默认为当前年月份
     } else if (isDayNum(date)) {
       let today = new Date().toLocaleDateString();
       date = today.split("/")[0] + "/" + date + "/" + today.split("/")[2];
       //判读号数是不是超出该月的最大号数
-      if(new Date(date).getMonth() == new Date().getMonth()){
+      if (new Date(date).getMonth() == new Date().getMonth()) {
         return date;
-      }else{
+      } else {
         throw "输入的号数在该月中不存在!!!";
       }
+      //! 3. 如"10/25/2023", "10/25";
       //判断date为xx/xx/xxxx格式,或者x/x/xxxx格式
     } else if (date.trim().split("/").length == 3 && Date.parse(date) && isYearNum(date.trim().split("/")[2])) {
       return new Date(date).toLocaleDateString();
       //判断date为xx/xx格式,或者x/x格式,缺年份默认为当前年份
-
     } else if (date.trim().split("/").length == 2 && Date.parse(date + "/" + new Date().getFullYear())) {
       return new Date(date + "/" + new Date().getFullYear()).toLocaleDateString();
+      //! 3b. 如"2023/10/25";
+      //判断date为xxxx/xx/xx格式,或者xxxx/x/x格式
+    } else if (date.trim().split("/").length == 3 && Date.parse(date) && isYearNum(date.trim().split("/")[0])) {
+
+      return new Date(Date.parse(date)).toLocaleDateString();
+
+      //! 4. 如"2023-10-25", "10-25";
       //判断date为xxxx-xx-xx格式,或者xxxx-x-x格式
     } else if (date.trim().split("-").length == 3 && Date.parse(date) && isYearNum(date.trim().split("-")[0])) {
       return new Date(date + " ").toLocaleDateString();
       //判断date为xx-xx格式,或者x-x格式,缺年份默认为当前年份
     } else if (date.trim().split("-").length == 2 && Date.parse(new Date().getFullYear) + "-" + date) {
       return new Date(new Date().getFullYear() + "-" + date + " ").toLocaleDateString();
-      //都不是,抛出异常
+      //! 都不是,抛出异常
     } else {
       throw "input date error";
     };
@@ -107,6 +116,7 @@ function dateformat(date) {
 // console.log("mon", dateformat("mon"));
 // console.log(25, dateformat("25"));
 // console.log("10/25/2023", dateformat("10/25/2023"));
+// console.log("2023/10/25", dateformat("2023/10/25"));
 // console.log("10/25", dateformat("10/25"));
 // console.log("2023-10-25", dateformat("2023-10-25"));
 // console.log("10-25", dateformat("10-25"));
@@ -146,11 +156,11 @@ function isSameWeek(date1, date2) {
 
 //判断单个date或者dates数组,是否为“Month/Day/Year” 格式:日期'11/10/2023'或'1/2/1999'
 function isMDYdate(date_datesArr) {
-  let arr=[];
+  let arr = [];
   //如果参数不是数组
   if (!Array.isArray(date_datesArr)) {
     arr.push(date_datesArr);
-  }else{
+  } else {
     arr = date_datesArr;
   }
   let set = new Set(arr);
@@ -171,7 +181,7 @@ function datesAndothersSort(datesArr_nonDates) {
     //排序日期
     return Array.from(datesArr_nonDates).sort(function (a, b) {
       return new Date(a) - new Date(b);
-    })
+    });
   } else {
     //排序普通值
     return Array.from(datesArr_nonDates).sort();

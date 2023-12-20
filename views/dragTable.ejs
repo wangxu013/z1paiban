@@ -9,57 +9,60 @@
     crossorigin="anonymous">
   <style>
     h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-block-start: 0.2em;
-    margin-block-end: 0.4em;
+      text-align: center;
+      font-size: 2em;
+      margin-block-start: 0.2em;
+      margin-block-end: 0.4em;
     }
 
     div.container {
-    display: flex;
-    justify-content: center;
-    }
-    div>div.left{
-    width: 125px;
-    float: left;
-
-
-
+      display: flex;
+      justify-content: center;
     }
 
-    div.item {background-color: rgb(228, 232, 232);
-    float:left;
-    width: 56px;
-    height: 38px;
-    margin: 2px;
-    border-radius: 6px;
-    font-size: medium;
-    text-align: center;
-    line-height: 40px;
-    vertical-align: middle;
+    div>div.left {
+      width: 125px;
+      float: left;
 
-    overflow: hidden;
-    white-space: nowrap;
-    /* text-overflow: ellipsis; */
+
+
     }
 
-    
+    div.item {
+      background-color: rgb(228, 232, 232);
+      float: left;
+      width: 56px;
+      height: 38px;
+      margin: 2px;
+      border-radius: 6px;
+      font-size: medium;
+      text-align: center;
+      line-height: 40px;
+      vertical-align: middle;
+
+      overflow: hidden;
+      white-space: nowrap;
+      /* text-overflow: ellipsis; */
+    }
+
+
     table {
-    border: 1px solid black;
-    border-spacing: 1px;
-    /* border-collapse: collapse; */
+      border: 1px solid black;
+      border-spacing: 1px;
+      /* border-collapse: collapse; */
 
     }
 
     th,
     td {
-    border: 1px solid grey;
-    width: 60px;
-    height: 42px;
-    padding: 2px;
+      border: 1px solid grey;
+      width: 60px;
+      height: 42px;
+      padding: 2px;
     }
 
-    .drag-enter {background-color: rgba(103, 103, 103, 0.3);
+    .drag-enter {
+      background-color: rgba(103, 103, 103, 0.3);
     }
 
     .th_date {
@@ -68,26 +71,86 @@
       font-family: Arial, Helvetica, sans-serif;
       color: #e00c08;
     }
-div.item.color1 {background-color: #fb3135a1;}
-div.item.color2 {background-color: #e1580ea1;}
-div.item.color3 {background-color: #d4ab07a1;}
-div.item.color4 {background-color: #9ccd16a1;}
-div.item.color5 {background-color: #20bf12a1;}
-div.item.color6 {background-color: #12bf94a1;}
-div.item.color7 {background-color: #12a2bfa1;}
-div.item.color8 {background-color: #125dbfa1;}
-div.item.color9 {background-color: #1227e8a1;}
-div.item.color10 {background-color: #8812e8a1;}
-div.item.color11 {background-color: #c112e8a1;}
-div.item.color12 {background-color: #e812dda1;}
-div.item.color13 {background-color: #e60970b0;}
-div.item.color14 {background-color: #800723a1;}
-div.item.color15 {background-color: #120648a1;}
-div.item.color16 {background-color: #175105a1;}
-div.item.color17 {background-color: #58034ba1;}
-div.item.color18 {background-color: #0b20044e;}
-div.item.color19 {background-color: #ddd5616f;}
-div.item.color20 {background-color: #8de0726f;}
+
+    div.item.color1 {
+      background-color: #fb3135a1;
+    }
+
+    div.item.color2 {
+      background-color: #e1580ea1;
+    }
+
+    div.item.color3 {
+      background-color: #d4ab07a1;
+    }
+
+    div.item.color4 {
+      background-color: #9ccd16a1;
+    }
+
+    div.item.color5 {
+      background-color: #20bf12a1;
+    }
+
+    div.item.color6 {
+      background-color: #12bf94a1;
+    }
+
+    div.item.color7 {
+      background-color: #12a2bfa1;
+    }
+
+    div.item.color8 {
+      background-color: #125dbfa1;
+    }
+
+    div.item.color9 {
+      background-color: #1227e8a1;
+    }
+
+    div.item.color10 {
+      background-color: #8812e8a1;
+    }
+
+    div.item.color11 {
+      background-color: #c112e8a1;
+    }
+
+    div.item.color12 {
+      background-color: #e812dda1;
+    }
+
+    div.item.color13 {
+      background-color: #e60970b0;
+    }
+
+    div.item.color14 {
+      background-color: #800723a1;
+    }
+
+    div.item.color15 {
+      background-color: #120648a1;
+    }
+
+    div.item.color16 {
+      background-color: #175105a1;
+    }
+
+    div.item.color17 {
+      background-color: #58034ba1;
+    }
+
+    div.item.color18 {
+      background-color: #0b20044e;
+    }
+
+    div.item.color19 {
+      background-color: #ddd5616f;
+    }
+
+    div.item.color20 {
+      background-color: #8de0726f;
+    }
   </style>
 </head>
 
@@ -101,7 +164,7 @@ div.item.color20 {background-color: #8de0726f;}
       FT
       <div data-dropif="move" class="left">
 
-        
+
         <!-- <div data-effect="copy" draggable="true" class="color1 item" data-idnum="2301">1</div>
         <div data-effect="copy" draggable="true" class="color2 item" data-idnum="2302">2</div>
         <div data-effect="copy" draggable="true" class="color3 item" data-idnum="2303">3</div>
@@ -132,30 +195,30 @@ div.item.color20 {background-color: #8de0726f;}
       </div>
     </div>
     <div class="right">
-    <div style="display: flex; justify-content: space-between;">
-      <div style="display: block;">
-        <input type="date" id="dateInput">
-        <button onclick="goUp()">上周</button>
-        <button onclick="goDown()">下周</button>
-        <button onclick="goNow()">now本周</button>
-      </div>
-      <div style="display: block;">
-
-        <!-- 模态对话框 -->
-        <div id="myModal" class="modal modal-sm"
-          style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <input type="date" id="datePicker">
-            <button onclick="submitDate()">确认</button>
-          </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="display: block;">
+          <input type="date" id="dateInput">
+          <button onclick="goUp()">上周</button>
+          <button onclick="goDown()">下周</button>
+          <button onclick="goNow()">now本周</button>
         </div>
-        <!-- 按钮 -->
-        <button id="btnChange">插入指定周的数据</button>
-    </div>
-      
+        <div style="display: block;">
 
-        
+          <!-- 模态对话框 -->
+          <div id="myModal" class="modal modal-sm"
+            style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <input type="date" id="datePicker">
+              <button onclick="confirmDate()">确认插入日期</button>
+            </div>
+          </div>
+          <!-- 按钮 -->
+          <button id="btnChange">插入指定周的数据</button>
+        </div>
+
+
+
       </div>
       <table>
         <!-- 列的分组 -->
@@ -171,7 +234,7 @@ div.item.color20 {background-color: #8de0726f;}
         </colgroup>
         <thead>
           <tr>
-            <td colspan="2"  data-time="date"> 
+            <td colspan="2" data-time="date">
               周一:
               <span class="th_date" id="table_date"></span>
               至周日:
@@ -299,7 +362,7 @@ div.item.color20 {background-color: #8de0726f;}
     </div>
   </div>
 
-  
+
 
   <!--路径for服务器 -->
 

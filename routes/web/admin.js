@@ -186,6 +186,7 @@ router.all('/tabledata', function (req, res, next) {
     // console.log("收到tabledata请求,from管理班表页面",dateReq);
   } else {
     console.log("dateReq is undefined");
+    
     res.json('dateReq is undefined');
     res.end();
     return;
