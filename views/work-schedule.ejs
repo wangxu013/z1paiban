@@ -23,14 +23,27 @@
       justify-content: flex-end;
 
     }
-    .row-pm{
-      font-family:'Times New Roman', Times, serif;
-      font-style: italic;
-      font-weight: bold;
-    }
-    tr>th{
+
+    .row-pm td {
+      font-family: Arial, Times, serif;
       font-style: normal;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      font-weight: normal;
+      text-transform: uppercase;
+      text-decoration: underline;
+    }
+
+    tr>th {
+      font-style: normal;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    .row-odd {
+      background-color: #fff;
+    }
+
+    .row-even {
+      background-color: #05d6942d;
+
     }
 
     @media print {
@@ -43,14 +56,24 @@
         display: none;
       }
 
-      #restaurantTitle{
-        display:contents;
+      #restaurantTitle {
+        display: contents;
       }
 
       div.bodycontainer {
         margin: 0 auto;
         width: 21cm;
         height: 29.7cm;
+      }
+
+      .row-odd {
+        background-color: #fff;
+      }
+
+      .row-even {
+        background-color: #cecaca !important;
+        -webkit-print-color-adjust: exact !important;
+        border: 3px red dashed;
       }
 
       @page {
@@ -118,7 +141,7 @@
       <!-- 行框n -->
       <div class="row">
         <!-- 块包 -->
-        Working Time: Mon-Thu:10:30-14:30 16:30-21:30; Fri-Sat:10:30-15:00 16:30-22:00; Sun:11:30-15:00 16:00-21:30
+        Work-time: Mon-Thu:10:30-14:30 16:30-21:30; Fri-Sat:10:30-15:00 16:30-22:00; Sun:11:30-15:00 16:00-21:30
 
       </div>
     </div>

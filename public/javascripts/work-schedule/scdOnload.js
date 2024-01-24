@@ -48,17 +48,17 @@ async function displaySchedule(dateReq) {
   document.getElementById('schedule-table-0').innerHTML = arrayToTableHTML(data, 'mytable0');
   //获取table并设置样式
   let mytable0 = document.getElementById('mytable0');
-  mytable0.className = 'table table-bordered table-striped';
+  mytable0.className = 'table table-bordered ';
   //转换成HTML
   document.getElementById('schedule-table-1').innerHTML = arrayToTableHTML(data1, 'mytable1');
   //获取table并设置样式
   let mytable1 = document.getElementById('mytable1');
-  mytable1.className = 'table table-bordered table-striped';
+  mytable1.className = 'table table-bordered ';
   //转换成HTML
   document.getElementById('schedule-table-2').innerHTML = arrayToTableHTML(data2, 'mytable2');
   //获取table并设置样式
   let mytable2 = document.getElementById('mytable2');
-  mytable2.className = 'table table-bordered table-striped';
+  mytable2.className = 'table table-bordered ';
 
 
 }
@@ -90,7 +90,7 @@ async function getFixedSchedule2DArray(dateReq) {
   //组装成新的url
   let url = '/work-schedule/data_onload?' + paramString;
 
-//发送带日期参数的get请求
+  //发送带日期参数的get请求
   let data = await fetch(url).then(res => res.json()).then(data => {
     return data;
   }).catch(err => {
@@ -99,6 +99,8 @@ async function getFixedSchedule2DArray(dateReq) {
 
   //!修改"name"为"^":检查上行的第一列是否和当前行的第一列相同,如果相同就将当前行的第一列值该为"^"
   let tableArr = data;
+  
+  // 循环遍历数组,跳过第一行
   for (let i = 1; i < tableArr.length; i++) {
     if (tableArr[i][0] == tableArr[i - 1][0]) {
       tableArr[i][0] = "^";
@@ -115,9 +117,26 @@ async function getFixedSchedule2DArray(dateReq) {
  * 这个函数的作用是返回table的HTML字符串,包括了table自身标签
  * @param {array[]} data -参数的作用是提供表格的二维数组数据
  * @param {string} idStr -参数的作用是生成table元素的#id名
- * @returns {string} -返回table的HTML字符串
+ * @returns {string} -返回table的HTML字符文本
  */
 function arrayToTableHTML(data, idStr) {
+  console.log(data);
+
+  //?创建addClassList_ditto的数组.判断该行name是否同上,或为"^";同则取"addClassList_ditto前行的同值",异则取"addClassList_ditto前行的反值";第一行取true.
+  var addClassList_ditto = [];
+  for (var i = 0; i < data.length; i++) {
+    if (i === 0) {
+      addClassList_ditto.push(true);
+    }
+    else if (data[i][0] == data[i - 1][0] || data[i][0] =="^") {
+      addClassList_ditto.push(addClassList_ditto[i - 1]);
+    }
+    else {
+      addClassList_ditto.push(!addClassList_ditto[i-1]);
+    }
+  }
+
+
   var table = document.createElement('table');
   table.id = idStr;
   for (var i = 0; i < data.length; i++) {
@@ -131,6 +150,8 @@ function arrayToTableHTML(data, idStr) {
     //?设置表格内容
     else if (data[i][1]) {
       row.className = `row-`+data[i][1];
+      //!增加classList_ditto
+      row.classList.add(addClassList_ditto[i] ? 'row-even' : 'row-odd');
     }
 
 
