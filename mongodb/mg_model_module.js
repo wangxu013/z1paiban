@@ -30,7 +30,7 @@ const workScheduleSchema = new Schema({
     createdate: Date,
     position: {
         type: String,
-        enum: ["host", "bartender", "server", "busser", "trainee"]
+        enum: ["host", "bartender", "server", "busser", "trainee","reserved"]
     },
     remarks: {
         type: String,
