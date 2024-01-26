@@ -72,9 +72,11 @@ let date = table_date.innerText;
 
 
 async function dragblock_then_tableData(date) {
+  //加载侧边拖块
   await dragblock_onload();
+  //清除表格内容
   clearTable();
-
+  //加载table该date的上班人员数据
   await tableData_onload(date);
 }
 
@@ -165,6 +167,7 @@ async function confirmDate() {
   //发送fetch 请求到 服务器,得到 employee数据ep_db
   let ep_db_t = await fetch('/admin/getemployeedb').catch(err => { console.log("fetch得到ep db err:" + err); });
   let ep_db = await ep_db_t.json();
+  // console.log("ep_db:", ep_db);
 
   //获得left元素,共3个,父1个,子2个
   let left = document.querySelectorAll(".left");
@@ -220,7 +223,7 @@ async function tableData_onload(date, url = urlTpr) {
     }
   }).then(res => res.json()).catch(err => console.log(err));
 
-  // console.log(tableBlueprint);
+  console.log(tableBlueprint);
 
   //!according "填表蓝图" to fill the "填表div"
   /*

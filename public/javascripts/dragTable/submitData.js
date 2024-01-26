@@ -29,18 +29,18 @@ btn.onclick = function () {
           (node) => {
                //判断node里的dataset-time是否为am或者pm,如果为pm返回true
                // console.log(node.parentNode.dataset.time.slice(-2, ));
-               let shift = node.parentNode.dataset.time.slice(-2, );
+               let shift = node.parentNode.dataset.time.slice(-2,);
 
                //获取week周几,转化为日期
                let week = node.parentNode.dataset.time.slice(0, 3);
                // let workdate = dateTrans.weektodate(week);
-               let workdate = dateTrans.weektodate(week,document.getElementById('table_date').innerText);
+               let workdate = dateTrans.weektodate(week, document.getElementById('table_date').innerText);
 
                //返回一个对象,格式为workSchedules对象集合的格式
                let obj = {
                     employeename: node.innerText,
                     employeenumber: node.dataset.idnum,
-                    //todo 这里的时间格式是yyyy-mm-dd hh:mm:ss,这里要改成mm/dd/yyyy
+                    //! 这里的时间格式是yyyy-mm-dd hh:mm:ss,这里要改成mm/dd/yyyy
                     workdate,
                     shift,
                     createdate: new Date(),
@@ -67,7 +67,7 @@ async function submitData(data) {
      });
      let jsonResult = await resResult.json();
      //手动暂停2秒后再打印
-    
+
      console.log("submitData response.json():", jsonResult);
      return jsonResult;
 };
