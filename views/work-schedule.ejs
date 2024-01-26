@@ -25,7 +25,7 @@
     }
 
     .row-pm td {
-      font-family: Arial, Times, serif;
+      font-family: "Segoe UI", Times, serif;
       font-style: normal;
       font-weight: normal;
       text-transform: uppercase;
@@ -48,6 +48,11 @@
 
     @media print {
 
+.table td, .table th {
+        padding: 0.65rem;
+      }
+
+
       div.headcontainer {
         display: none;
       }
@@ -62,8 +67,8 @@
 
       div.bodycontainer {
         margin: 0 auto;
-        width: 21cm;
-        height: 29.7cm;
+        width: 100%;
+        height: 100%;
       }
 
       .row-odd {
@@ -79,7 +84,7 @@
       @page {
         size: A4;
         orientation: portrait;
-        margins: 0.1 0cm;
+        margins: 0.3 1 cm;
       }
 
 
@@ -141,7 +146,8 @@
       <!-- 行框n -->
       <div class="row">
         <!-- 块包 -->
-        Work-time: Mon-Thu:10:30-14:30 16:30-21:30; Fri-Sat:10:30-15:00 16:30-22:00; Sun:11:30-15:00 16:00-21:30
+        &nbsp;&nbsp;&nbsp;Work-time: Mon-Thu:10:30-14:30 16:30-21:30; Fri-Sat:10:30-15:00 16:30-22:00; Sun:11:30-15:00
+        16:00-21:30
 
       </div>
     </div>
