@@ -3,11 +3,76 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administrator</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+
   <style>
+    /* #页面头部的相关样式。 */
+    #editor_switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      margin: 20px 0px 0px 30px;
+    }
+
+    #editor_switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    #editor_switch .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cccccc6d;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    #editor_switch .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: rgba(255, 255, 255, 0.547);
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    #editor_switch input:focus+.slider {
+      box-shadow: 0 0 2px #2196F3;
+    }
+
+    #editor_switch input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    #editor_switch input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    div.page-header {
+      /* display: inline-flex; */
+      width: 800px;
+      margin: auto;
+    }
+    /* end #页面头部的相关样式。  */
+
+
+
     h1 {
       text-align: center;
       font-size: 2em;
@@ -152,10 +217,46 @@
       background-color: #8de0726f;
     }
   </style>
+
+<!-- 外部引用vue的结构。 -->
+  <script defer="defer" src="/js/chunk-vendors.134a43f7.js"></script>
+  <script defer="defer" src="/js/app.9093dd45.js"></script>
+  <link href="/css/app.ddf1516c.css" rel="stylesheet">
+
+<!-- 格外添加的微调样式。主要是调整vue里边的个别样式。 -->
+<style>
+div.container2 td,div.container2 th{
+width: 75px;
+height: 54px;
+vertical-align: middle;
+}
+/* Container2里边的每一个职位段上的抬头。 */
+tr.header-date td,tr.header-date th{
+  border: none;
+height: 15px;
+}
+tr.header-date>td{
+  font-size: 12px;
+  padding: 0px 3px;
+}
+</style>
 </head>
 
 <body>
-  <h1>workSchedule</h1>
+  <!-- 页面头部。 -->
+  <div class="page-header">
+  <!-- 页头的切换按钮。 -->
+    <div style="width: 200px;">
+      <label id="editor_switch">
+        <input onchange="checkChange()" type="checkbox">
+        <span class="slider"></span>
+      </label>
+      编辑方式转换
+    </div>
+    <h1>workSchedule</h1>
+  </div>
+
+  <!-- 主页面 编辑页面一 -->
   <div class="container">
     <div data-dropif="move" class="left">
       <button type="button" class="btn btn-primary btn-sm" onclick="gopage1()">员工表</button>
@@ -362,6 +463,53 @@
     </div>
   </div>
 
+  <!-- 副页面 编辑页面二 -->
+  <div class="container2">
+  <!-- 容器 -->
+  <div id="app"></div>
+</div>
+
+<!-- 页面脚本 editor-switch功能实现-->
+<script>
+  let editorInput = document.querySelector("#editor_switch>input");
+  let containerDiv = document.querySelector("div.container");
+  let containerDiv2 = document.querySelector("div.container2");
+  // 初始化副页面为隐藏。
+  containerDiv2.hidden = true;
+  console.log(containerDiv2);
+
+  function checkChange() {
+    if (editorInput.checked) {
+      containerDiv.hidden = true;
+      containerDiv2.hidden = false;
+      //! 切到第二编辑页面的时候，重新加载第二页面。
+      //A的ID#refreshPageDate,A元素身上带有刷新页面事件
+      let refreshElement = document.getElementById("refreshPageDate");
+      console.log(refreshElement);
+
+      // 创建一个点击事件对象
+      let clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      });
+
+      // 触发 A 元素的点击事件
+      refreshElement.dispatchEvent(clickEvent);
+
+    } else {
+      containerDiv.hidden = false;
+      containerDiv2.hidden = true;
+    //! 切换回来的时候，重新加载页面
+      //先清楚tableCell原有数据
+      clearTable();
+      //再重新填充tableCell数据
+      tableData_onload(date);
+    }
+
+  }
+  // console.log(editorInput.checked, containerDiv.style.display);
+
+</script>
 
 
   <!--路径for服务器 -->
