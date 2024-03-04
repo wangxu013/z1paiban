@@ -219,9 +219,9 @@
   </style>
 
 <!-- 外部引用vue的结构。 -->
-  <script defer="defer" src="/js/chunk-vendors.8da5ec48.js"></script>
-  <script defer="defer" src="/js/app.d44d0c5a.js"></script>
-  <link href="/css/app.0f9bd2d3.css" rel="stylesheet">
+  <script defer="defer" src="/js/chunk-vendors.134a43f7.js"></script>
+  <script defer="defer" src="/js/app.72cb0cdb.js"></script>
+  <link href="/css/app.d976fb16.css" rel="stylesheet">
 
 <!-- 格外添加的微调样式。主要是调整vue里边的个别样式。 -->
 <style>
@@ -476,7 +476,6 @@ tr.header-date>td{
   let containerDiv2 = document.querySelector("div.container2");
   // 初始化副页面为隐藏。
   containerDiv2.hidden = true;
-  console.log(containerDiv2);
 
   function checkChange() {
     if (editorInput.checked) {
@@ -485,7 +484,6 @@ tr.header-date>td{
       //! 切到第二编辑页面的时候，重新加载第二页面。
       //A的ID#refreshPageDate,A元素身上带有刷新页面事件
       let refreshElement = document.getElementById("refreshPageDate");
-      console.log(refreshElement);
 
       // 创建一个点击事件对象
       let clickEvent = new MouseEvent("click", {

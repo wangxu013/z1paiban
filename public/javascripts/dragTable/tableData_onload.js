@@ -223,7 +223,7 @@ async function tableData_onload(date, url = urlTpr) {
     }
   }).then(res => res.json()).catch(err => console.log(err));
 
-  console.log(tableBlueprint);
+  // console.log(tableBlueprint);
 
   //!according "填表蓝图" to fill the "填表div"
   /*
